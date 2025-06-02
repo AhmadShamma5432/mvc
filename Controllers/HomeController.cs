@@ -37,16 +37,25 @@ namespace MvcTodoApp.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        /// <summary>
-        /// تعيين مهمة كمكتملة.
-        /// </summary>
         [HttpPost]
         public IActionResult CompleteTask(int id)
         {
             var task = tasks.FirstOrDefault(t => t.Id == id);
             if (task != null)
                 task.IsComplete = true;
+            return RedirectToAction("Index");
+        }
+
+
+        // TO DO UPDATE TASK
+        [HttpPost]
+        public IActionResult EditTask(int id, string newTitle)
+        {
+            var task = tasks.FirstOrDefault(t => t.Id == id);
+            if (task != null && !string.IsNullOrWhiteSpace(newTitle))
+            {
+                task.Title = newTitle;
+            }
             return RedirectToAction("Index");
         }
     }
